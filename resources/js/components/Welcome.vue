@@ -17,11 +17,16 @@ import { RouterLink, RouterView } from 'vue-router'
             <RouterLink to="/vue" class="nav-link active">Home</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink to="/users" class="nav-link ">User</RouterLink>
+            <RouterLink to="/users" class="nav-link">User</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink to="/users/create" class="nav-link ">Create user</RouterLink>
+            <RouterLink to="/users/create" class="nav-link">Create User</RouterLink>
           </li>
+          
+          <li>
+            <RouterLink to="/kelulusan" class="nav-link">Kelulusan</RouterLink>
+          </li>
+
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

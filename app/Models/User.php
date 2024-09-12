@@ -8,10 +8,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements Auditable
 {
-    use HasFactory, Notifiable, HasApiTokens, \OwenIt\Auditing\Auditable;
+    use HasFactory,
+    Notifiable, 
+    HasApiTokens, 
+    \OwenIt\Auditing\Auditable,
+    HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,13 +30,23 @@ class User extends Authenticatable implements Auditable
     ];
 
     protected $auditInclude = [
+        'name',
         'email',
+        'remark',
+        'status'
     ];
 
     // protected $auditExclude = [
     //     'password',
     // ];
 
+
+    const STATUS_BARU = 'new';
+    const STATUS_LULUS = 'approved';
+    const STATUS_TOLAK = 'rejected';
+    const STATUS_DALAM_SEMAKAN = 'processing';
+
+    protected $guard_name = ['web', 'admin', 'sanctum', 'api'];
 
     /**
      * The attributes that should be hidden for serialization.

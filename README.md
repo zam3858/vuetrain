@@ -451,3 +451,229 @@
          protected $fillable = ['name', 'email', 'password'];
      }
      ```
+
+### Introduction to Vue Router
+
+Vue Router is the official router for Vue.js, used to build single-page applications (SPA). It allows you to map components to different URLs and provides the functionality to switch between views seamlessly without reloading the entire page.
+
+#### Key Concepts:
+1. **Routes**: Define how your application's URL maps to specific components.
+2. **Router View**: A special Vue component used to render matched components.
+3. **Navigation**: Methods for programmatically navigating between routes.
+
+### Installing Vue Router
+
+If you are working with a Vue CLI project, you can easily install `vue-router`:
+
+```bash
+npm install vue-router
+```
+
+After installing, you need to configure the router in your application.
+
+### Basic Configuration
+
+First, you need to define your routes in the `router.js` file (or any other name of your choice).
+
+```js
+// src/router.js
+
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from './components/Home.vue';
+import About from './components/About.vue';
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
+
+### Setting Up Router in Your Vue App
+
+To integrate the router, you need to add it to your main Vue instance.
+
+```js
+// src/main.js
+
+import { createApp } from 'vue';
+import App from './App.vue';
+import router from './router';
+
+createApp(App)
+  .use(router)
+  .mount('#app');
+```
+
+### Using `<router-view>` and `<router-link>`
+
+Once the router is set up, you can use the `<router-view>` component in your `App.vue` file to define where your routes will be rendered, and use `<router-link>` to create navigational links between them.
+
+```html
+<!-- src/App.vue -->
+
+<template>
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+    
+    <!-- Render the matched route's component -->
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+};
+</script>
+```
+
+### Dynamic Routes
+
+Dynamic routes are useful when the path needs to include parameters, like a user ID.
+
+```js
+// src/router.js
+
+import User from './components/User.vue';
+
+const routes = [
+  { path: '/user/:id', component: User },
+];
+
+// In User.vue, access the dynamic route parameter:
+<script>
+export default {
+  mounted() {
+    console.log(this.$route.params.id);
+  }
+};
+</script>
+```
+
+In this example, navigating to `/user/123` will render the `User.vue` component, and the ID `123` will be accessible via `this.$route.params.id`.
+
+### Programmatic Navigation
+
+Vue Router also allows you to navigate programmatically using the `this.$router` object.
+
+```js
+// Example of programmatic navigation inside a component
+
+<script>
+export default {
+  methods: {
+    goToHome() {
+      this.$router.push('/');
+    },
+  },
+};
+</script>
+```
+
+In this example, the method `goToHome` will navigate the user to the home route (`/`).
+
+### Named Routes
+
+You can give a name to your routes and use that name for navigation.
+
+```js
+// src/router.js
+
+const routes = [
+  { path: '/', name: 'home', component: Home },
+  { path: '/about', name: 'about', component: About },
+];
+
+// Using the named route to navigate
+<router-link :to="{ name: 'about' }">Go to About</router-link>
+```
+
+### Route Guards
+
+Vue Router also allows you to guard routes by checking conditions before navigating. You can use **navigation guards** to control access to certain routes.
+
+```js
+// src/router.js
+
+const routes = [
+  {
+    path: '/protected',
+    component: Protected,
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next(); // Allow navigation
+      } else {
+        next('/login'); // Redirect to login
+      }
+    },
+  },
+];
+```
+
+### Lazy Loading Routes
+
+For large applications, you might want to lazy-load routes to improve performance. This is done by splitting your JavaScript bundle into smaller chunks, only loading the components when needed.
+
+```js
+// src/router.js
+
+const routes = [
+  {
+    path: '/about',
+    component: () => import('./components/About.vue'), // Lazy-loaded route
+  },
+];
+```
+
+### Putting It All Together
+
+Here's a complete example that includes a basic router configuration, dynamic routes, and navigation links:
+
+```js
+// src/router.js
+
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from './components/Home.vue';
+import About from './components/About.vue';
+import User from './components/User.vue';
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About },
+  { path: '/user/:id', component: User }, // Dynamic route
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
+```
+
+```html
+<!-- src/App.vue -->
+
+<template>
+  <div>
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link :to="{ name: 'user', params: { id: 123 } }">User 123</router-link>
+    </nav>
+    
+    <!-- The matched component will be rendered here -->
+    <router-view></router-view>
+  </div>
+</template>
+```

@@ -14,6 +14,7 @@ const submit = () => {
     .then(response => {
       // save auth token to browser
       localStorage.setItem('token', response.data)
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' . response.data
       router.push('/dashboard')
     })
     .catch(error => {

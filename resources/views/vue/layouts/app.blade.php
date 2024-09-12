@@ -99,7 +99,10 @@
 
 <!-- Begin page content -->
 <main class="flex-shrink-0">
+    
     <div id='app' class="container"></div>
+    
+{{--<div id='apppelulus' class="container"></div>--}}
 </main>
 
 <footer class="footer mt-auto py-3 bg-body-tertiary">

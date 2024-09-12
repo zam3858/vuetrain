@@ -3,8 +3,10 @@ import Dashboard from "./components/Dashboard.vue"
 import Index from "./components/User/Index.vue"
 import Create from "./components/User/Create.vue"
 import Edit from "./components/User/Edit.vue"
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
 import Login from './components/Login/Login.vue'
+import KelulusanIndex from './components/Kelulusan/Index.vue'
+import KelulusanProcess from './components/Kelulusan/Process.vue'
 
 const routes = [
     {
@@ -36,6 +38,16 @@ const routes = [
         path: '/login',
         name: 'vue.login',
         component: Login,
+    },
+    {
+        path: '/kelulusan',
+        name: 'vue.kelulusan',
+        component: KelulusanIndex,
+    },
+    {
+        path: '/kelulusan/:id',
+        name: 'vue.kelulusanProses',
+        component: KelulusanProcess,
     }
 ]
 

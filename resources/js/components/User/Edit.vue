@@ -87,8 +87,8 @@ const update = () => {
     <ul>
         <li v-for="audit in audits">
             <table class="table table-compact">
-                <td>{{ audit.old_values.name }}</td>
-                <td>{{ audit.new_values.name }}</td>
+                <td>{{ audit.old_values }}</td>
+                <td>{{ audit.new_values }}</td>
             </table>
         </li>
     </ul>
