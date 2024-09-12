@@ -248,8 +248,6 @@
 ---
 ### Roles and Permission With Spatie/laravel-permission
 
-To create an introductory course on Spatie's Laravel Permission package, we can divide the content into sections that include the following:
-
 #### 1. **Introduction to Spatie Laravel Permission Package**
    - The Spatie Laravel Permission package allows you to manage user roles and permissions in a Laravel application easily.
    - With this package, you can assign permissions to users and manage role-based access control (RBAC).
